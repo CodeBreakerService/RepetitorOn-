@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Репетиторы ON®</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet" />
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="https://i.postimg.cc/LYtkFcy0/image.png" alt="Логотип Репетиторы ON">
+            <h1>Репетиторы ON®</h1>
+        </div>
+        <nav>
+            <button class="nav-btn" onclick="toggleModal('createProfileModal')"><span class="material-symbols-outlined">person_add</span> Создать анкету</button>
+            <button class="nav-btn danger" onclick="deleteAccount()"><span class="material-symbols-outlined">person_remove</span> Удалить аккаунт</button>
+        </nav>
+    </header>
+
+    <main>
+        <section class="profiles-grid" id="profilesContainer">
+            </section>
+    </main>
+
+    <div id="createProfileModal" class="modal hidden">
+        <div class="modal-content form-box">
+            <div class="modal-header">
+                <h2>Новая анкета</h2>
+                <button onclick="toggleModal('createProfileModal')" class="close-btn">&times;</button>
+            </div>
+            <div class="form-body">
+                <input type="text" id="profName" placeholder="Ваше имя" required>
+                <input type="text" id="profSubject" placeholder="Предмет (например, Математика)" required>
+                <input type="text" id="profPrice" placeholder="Цена (например, 1500 ₽/ч)" required>
+                <button onclick="createProfile()" class="submit-btn">Опубликовать</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="chatModal" class="modal hidden">
+        <div class="modal-content chat-box">
+            <div class="modal-header chat-header">
+                <h2><span class="material-symbols-outlined">forum</span> Чат с репетитором</h2>
+                <button onclick="toggleModal('chatModal')" class="close-btn">&times;</button>
+            </div>
+            <div class="chat-messages" id="chatMessages">
+                <p class="sys-msg">Заказ оформлен. Можете начать общение!</p>
+            </div>
+            <div class="chat-input">
+                <input type="text" id="chatInputMsg" placeholder="Введите сообщение...">
+                <button onclick="sendMessage()"><span class="material-symbols-outlined">send</span></button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
