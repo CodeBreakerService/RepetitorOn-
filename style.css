@@ -1,0 +1,79 @@
+:root {
+    --bg-color: #faf8fc;
+    --primary: #6b21d6;
+    --primary-light: #f3e8ff;
+    --text-main: #2d1b4e;
+    --card-bg: #ffffff;
+    --danger: #ef4444;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body { background-color: var(--bg-color); font-family: 'Inter', sans-serif; color: var(--text-main); min-height: 100vh; }
+
+header { background: var(--card-bg); padding: 15px 40px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 15px rgba(107, 33, 214, 0.05); }
+
+.logo { display: flex; align-items: center; gap: 15px; color: var(--primary); }
+.logo img { height: 40px; border-radius: 8px; } /* Настройка размера твоего логотипа */
+.logo h1 { font-size: 24px; font-weight: 700; }
+
+nav { display: flex; gap: 15px; }
+
+.nav-btn, .icon-btn { display: flex; align-items: center; gap: 8px; padding: 10px 16px; border: none; border-radius: 8px; background: var(--primary-light); color: var(--primary); font-weight: 600; cursor: pointer; transition: 0.2s; }
+.nav-btn:hover { background: #e9d5ff; }
+.danger { background: #fee2e2; color: var(--danger); }
+.danger:hover { background: #fecaca; }
+.icon-btn { padding: 8px; border-radius: 50%; }
+
+.profiles-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; padding: 40px; max-width: 1200px; margin: 0 auto; }
+
+.profile-card { background: var(--card-bg); border-radius: 16px; padding: 24px; box-shadow: 0 10px 30px rgba(107, 33, 214, 0.08); display: flex; flex-direction: column; gap: 20px; position: relative; }
+.profile-info { display: flex; align-items: center; gap: 15px; }
+.avatar { font-size: 50px; color: var(--primary); }
+.subject, .price { display: flex; align-items: center; gap: 5px; color: #6b7280; font-size: 14px; margin-top: 4px; }
+.price { font-weight: 700; color: var(--primary); font-size: 16px; }
+.actions { position: absolute; top: 20px; right: 20px; display: flex; gap: 8px; }
+
+/* ─── Кнопка заказа с машинкой ─── */
+.btn { position: relative; display: inline-flex; align-items: center; justify-content: center; overflow: hidden; width: 100%; height: 50px; border: none; border-radius: 25px; cursor: pointer; outline: none; background: linear-gradient(135deg, #6b21d6 0%, #4B0082 60%, #301934 100%); box-shadow: 0 4px 15px rgba(75, 0, 130, 0.3); transition: box-shadow 0.3s ease, transform 0.2s ease, width 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+.btn:hover:not(.is-driving):not(.is-success) { transform: scale(1.02); box-shadow: 0 6px 20px rgba(75, 0, 130, 0.4); }
+.btn:active:not(.is-driving):not(.is-success) { transform: scale(0.98); }
+.btn__label { color: #fff; font-size: 15px; font-weight: 700; letter-spacing: 0.04em; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 8px; transition: opacity 0.2s ease, transform 0.2s ease; pointer-events: none; }
+.btn__label::before { content: 'shopping_cart'; font-family: 'Material Symbols Outlined'; font-size: 20px; }
+.btn__scene { position: absolute; inset: 0; display: flex; align-items: center; justify-content: flex-start; overflow: hidden; pointer-events: none; opacity: 0; }
+.truck { position: absolute; left: -80px; display: flex; flex-direction: column; align-items: flex-start; }
+.truck svg { display: block; }
+.btn__success { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 8px; color: #d8b4fe; font-size: 14px; font-weight: 700; opacity: 0; transform: scale(0.8); transition: opacity 0.35s ease 0.1s, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s; pointer-events: none; }
+.check-icon { width: 22px; height: 22px; border-radius: 50%; background: #22c55e; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transform: scale(0); transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 0.25s; }
+.check-icon svg { width: 13px; height: 13px; }
+.btn.is-driving .btn__label, .btn.is-success .btn__label { opacity: 0; transform: translateY(-8px); }
+.btn.is-driving .btn__scene { opacity: 1; }
+.btn.is-driving .truck { animation: drive 2s cubic-bezier(0.25, 0.1, 0.25, 1) forwards; }
+.btn.is-driving .wheel { transform-box: fill-box; transform-origin: center; animation: spin 0.5s linear infinite; }
+.btn.is-success { background: linear-gradient(135deg, #16a34a 0%, #15803d 100%); cursor: default; }
+.btn.is-success .btn__success { opacity: 1; transform: scale(1); }
+.btn.is-success .check-icon { transform: scale(1); }
+
+@keyframes drive { 0% { left: -80px; } 15% { left: 12px; } 80% { left: 12px; } 100% { left: calc(100% + 20px); } }
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+/* ─── Модальные окна ─── */
+.modal { position: fixed; inset: 0; background: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center; z-index: 1000; }
+.hidden { display: none; }
+.modal-content { background: var(--card-bg); width: 400px; border-radius: 16px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.2); }
+.modal-header { background: var(--primary); color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
+.modal-header h2 { display: flex; align-items: center; gap: 8px; font-size: 18px; }
+.close-btn { background: none; border: none; color: white; font-size: 24px; cursor: pointer; }
+
+/* Форма */
+.form-body { padding: 20px; display: flex; flex-direction: column; gap: 15px; }
+.form-body input { padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: inherit; }
+.submit-btn { background: var(--primary); color: white; padding: 12px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; }
+
+/* Чат */
+.chat-messages { padding: 20px; height: 300px; overflow-y: auto; background: #f9f9f9; display: flex; flex-direction: column; gap: 10px; }
+.chat-input { display: flex; padding: 15px; gap: 10px; border-top: 1px solid #eee; }
+.chat-input input { flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 8px; }
+.chat-input button { background: var(--primary); color: white; border: none; padding: 10px 15px; border-radius: 8px; cursor: pointer; }
+.sys-msg { text-align: center; color: #888; font-size: 12px; }
+.user-msg { background: var(--primary-light); padding: 10px; border-radius: 8px; align-self: flex-end; max-width: 80%; }
